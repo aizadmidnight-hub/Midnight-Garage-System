@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Garage System</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(circle at top, rgba(255, 215, 0, 0.14), transparent 55%),
+      linear-gradient(rgba(8, 8, 10, 0.78), rgba(8, 8, 10, 0.90)),
+      url("https://github.io") no-repeat center center/cover;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 42px;
+    max-width: 600px;
+  }
+
+  .logo {
+    width: 140px;
+    height: auto;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 8px 20px rgba(255, 215, 0, 0.3));
+    animation: float 3.5s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    color: #ffd700;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    background: linear-gradient(to right, #ffffff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    color: #b5b5b5;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
+    width: 100%;
+    max-width: 860px;
+  }
+
+  .card {
+    position: relative;
+    background: rgba(25, 25, 30, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 18px;
+    transition: transform 0.3s ease;
+  }
+
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .card p {
+    font-size: 13.5px;
+    color: #aaa;
+    line-height: 1.45;
+    margin-bottom: 20px;
+  }
+
+  .btn-open {
+    margin-top: auto;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffd700;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    border-color: #ffd700;
+    background: rgba(35, 33, 25, 0.85);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.18);
+  }
+
+  .card:hover .icon-box {
+    transform: scale(1.1);
+    background: #ffd700;
+  }
+
+  .card:hover .btn-open {
+    text-decoration: underline;
+  }
+
+  footer {
+    margin-top: 45px;
+    font-size: 12px;
+    color: #777;
+  }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <img class="logo" src="https://github.io" alt="Midnight Garage Logo">
+    <div class="badge">Event Management Portal</div>
+    <h1>MIDNIGHT GARAGE SYSTEM</h1>
+    <p class="subtitle">Pilih sistem acara yang ingin digunakan di bawah:</p>
+  </div>
+
+  <div class="menu">
+    <a class="card" href="https://aizadmidnight-hub.github.io/MidnightLuckydrawSystem/">
+      <div class="icon-box">🎰</div>
+      <h2>Lucky Draw</h2>
+      <p>Cabutan nombor bertuah beserta mod Grand Prize dan kesan bunyi.</p>
+      <span class="btn-open">Buka Sistem →</span>
+    </a>
+
+    <a class="card" href="https://aizadmidnight-hub.github.io/MidnightGarageGroupDrawSystem/">
+      <div class="icon-box">👥</div>
+      <h2>Group Draw</h2>
+      <p>Agihan peserta dan penjaga gol ke dalam pasukan secara automatik.</p>
+      <span class="btn-open">Buka Sistem →</span>
+    </a>
+
+    <a class="card" href="https://aizadmidnight-hub.github.io/MGCERTIFICATEGEN/">
+      <div class="icon-box">📜</div>
+      <h2>E-Cert Generator</h2>
+      <p>Penjanaan dan muat turun sijil digital rasmi dalam format PDF & JPG.</p>
+      <span class="btn-open">Buka Sistem →</span>
+    </a>
+  </div>
+
+  <footer>© 2026 Midnight Garage. Semua hak cipta terpelihara.</footer>
+
+</body>
+</html>
