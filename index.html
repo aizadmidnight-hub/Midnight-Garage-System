@@ -5,12 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Midnight Garage System</title>
 
-<!-- Tetapan PWA (App Icon & Skrin Penuh) -->
-<link rel="manifest" href="manifest.json">
+<!-- Tetapan PWA -->
 <meta name="theme-color" content="#08080c">
-<link rel="apple-touch-icon" href="mg.png">
+<link id="appleIcon" rel="apple-touch-icon" href="mg.png">
+<link id="dynamicManifest" rel="manifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<script>
+  // JANA IKON BERLATAR BELAKANG GELAP SECARA AUTOMATIK DARI mg.png
+  (function generateDarkIcon() {
+    const img = new Image();
+    img.src = "mg.png";
+    img.onload = function() {
+      const size = 512;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+
+      // 1. Lukis latar belakang gelap (#08080c)
+      ctx.fillStyle = "#08080c";
+      ctx.fillRect(0, 0, size, size);
+
+      // 2. Kira saiz logo supaya muat kemas di tengah (72% daripada ruang ikon)
+      const maxLogoSize = size * 0.72;
+      const scale = Math.min(maxLogoSize / img.width, maxLogoSize / img.height);
+      const w = img.width * scale;
+      const h = img.height * scale;
+      const x = (size - w) / 2;
+      const y = (size - h) / 2;
+
+      // 3. Lukis logo mg.png di atas latar gelap
+      ctx.drawImage(img, x, y, w, h);
+
+      const darkIconDataUrl = canvas.toDataURL("image/png");
+
+      // 4. Kemaskini ikon untuk iPhone / Safari
+      document.getElementById("appleIcon").href = darkIconDataUrl;
+
+      // 5. Kemaskini manifest untuk Android / Chrome
+      const manifestObj = {
+        name: "Midnight Garage System",
+        short_name: "MG System",
+        description: "Event Management Portal - Midnight Garage System",
+        start_url: window.location.href,
+        display: "standalone",
+        background_color: "#08080c",
+        theme_color: "#08080c",
+        orientation: "portrait",
+        icons: [
+          {
+            src: darkIconDataUrl,
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable"
+          }
+        ]
+      };
+
+      const stringManifest = JSON.stringify(manifestObj);
+      const blob = new Blob([stringManifest], { type: "application/json" });
+      document.getElementById("dynamicManifest").href = URL.createObjectURL(blob);
+    };
+  })();
+</script>
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +87,38 @@
     padding: 5px 14px; border-radius: 50px; margin-bottom: 12px; text-transform: uppercase;
   }
   h1 { font-size: clamp(26px, 4.5vw, 38px); color: #ffd700; margin-bottom: 8px; }
-  .subtitle { color: #a8a8b3; font-size: 15px; margin-bottom: 34px; }
+  .subtitle { color: #a8a8b3; font-size: 15px; margin-bottom: 22px; }
+
+  #installBtn {
+    display: none;
+    margin: 0 auto 28px auto;
+    background: linear-gradient(135deg, #ffd700, #f59e0b);
+    color: #000;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(255, 215, 0, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  #installBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255, 215, 0, 0.55); }
+  #installBtn:active { transform: scale(0.97); }
+
+  #iosTip {
+    display: none;
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: #ffd700;
+    font-size: 13px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin: 0 auto 24px auto;
+    max-width: 420px;
+    line-height: 1.5;
+  }
+
   .menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; text-align: left; }
   @media (max-width: 640px) { .menu { grid-template-columns: 1fr; } }
   .card {
@@ -58,8 +148,14 @@
     <div class="badge">Event Management Portal</div>
     <h1>MIDNIGHT GARAGE SYSTEM</h1>
     <p class="subtitle">Sila pilih sistem yang ingin digunakan di bawah:</p>
+
+    <button id="installBtn">📲 Pasang Aplikasi ke Skrin Utama</button>
+    <div id="iosTip">
+      Untuk pengguna iPhone/iPad: Tekan ikon <b>Share (⬆️)</b> di bar bawah Safari, kemudian pilih <b>"Add to Home Screen"</b>.
+    </div>
+
     <div class="menu">
-      <a class="card" href="https://aizadmidnight-hub.github.io/MidnightLuckydrawSystem/">
+      <a class="card" href="https://github.io">
         <div>
           <div class="card-top"><span class="icon">🎰</span><span class="tag">Cabutan</span></div>
           <h2>Lucky Draw</h2>
@@ -67,7 +163,7 @@
         </div>
         <div class="open">Buka Sistem →</div>
       </a>
-      <a class="card" href="https://aizadmidnight-hub.github.io/MidnightGarageGroupDrawSystem/">
+      <a class="card" href="https://github.io">
         <div>
           <div class="card-top"><span class="icon">👥</span><span class="tag">Pasukan</span></div>
           <h2>Group Draw</h2>
@@ -75,7 +171,7 @@
         </div>
         <div class="open">Buka Sistem →</div>
       </a>
-      <a class="card" href="https://aizadmidnight-hub.github.io/MGCERTIFICATEGEN/">
+      <a class="card" href="https://github.io">
         <div>
           <div class="card-top"><span class="icon">📜</span><span class="tag">Sijil</span></div>
           <h2>E-Cert Generator</h2>
@@ -83,7 +179,7 @@
         </div>
         <div class="open">Buka Sistem →</div>
       </a>
-      <a class="card sos" href="https://aizadmidnight-hub.github.io/EmergencyButton/">
+      <a class="card sos" href="https://github.io">
         <div>
           <div class="card-top"><span class="icon">🚨</span><span class="tag">Kecemasan</span></div>
           <h2>Bantuan Kecemasan (SOS)</h2>
@@ -101,6 +197,40 @@
       navigator.serviceWorker.register("sw.js").catch(() => {});
     });
   }
+
+  let deferredPrompt;
+  const installBtn = document.getElementById("installBtn");
+  const iosTip = document.getElementById("iosTip");
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = "inline-block";
+  });
+
+  installBtn.addEventListener("click", async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        installBtn.style.display = "none";
+      }
+      deferredPrompt = null;
+    } else {
+      iosTip.style.display = "block";
+    }
+  });
+
+  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  const isInStandaloneMode = ("standalone" in window.navigator) && window.navigator.standalone;
+  if (isIos && !isInStandaloneMode) {
+    installBtn.style.display = "inline-block";
+  }
+
+  window.addEventListener("appinstalled", () => {
+    installBtn.style.display = "none";
+    iosTip.style.display = "none";
+  });
 </script>
 </body>
 </html>
