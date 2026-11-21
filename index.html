@@ -3,328 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Midnight Garage System — Portal Utama</title>
+<title>Midnight Garage System</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background:
-      radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.16), transparent 50%),
-      radial-gradient(circle at 85% 90%, rgba(239, 68, 68, 0.10), transparent 45%),
-      linear-gradient(180deg, rgba(8, 8, 12, 0.80) 0%, rgba(5, 5, 8, 0.94) 100%),
-      url("bg.jpg") no-repeat center center/cover fixed;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(180deg, rgba(8,8,12,0.82), rgba(5,5,8,0.95)), url("bg.jpg") no-repeat center center/cover fixed;
+    color: #fff; min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 35px 20px;
   }
-
-  .container {
-    width: 100%;
-    max-width: 820px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .header {
-    text-align: center;
-    margin-bottom: 38px;
-  }
-
-  .logo-wrap {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 16px;
-  }
-
-  .logo-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 10%;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.35), transparent 70%);
-    filter: blur(18px);
-    z-index: 0;
-  }
-
-  .logo {
-    position: relative;
-    z-index: 1;
-    width: 135px;
-    height: auto;
-    animation: float 3.8s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-
+  .container { width: 100%; max-width: 820px; text-align: center; }
+  .logo { width: 135px; height: auto; margin-bottom: 14px; filter: drop-shadow(0 6px 18px rgba(255,215,0,0.35)); }
   .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 215, 0, 0.10);
-    border: 1px solid rgba(255, 215, 0, 0.35);
-    color: #ffd700;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 6px 16px;
-    border-radius: 50px;
-    margin-bottom: 14px;
-    text-transform: uppercase;
+    display: inline-block; background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.35);
+    color: #ffd700; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 5px 14px; border-radius: 50px; margin-bottom: 12px; text-transform: uppercase;
   }
-
-  .badge-dot {
-    width: 7px;
-    height: 7px;
-    background: #22c55e;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #22c55e;
-  }
-
-  h1 {
-    font-size: clamp(26px, 4.5vw, 40px);
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    background: linear-gradient(135deg, #ffffff 30%, #ffd700 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 10px;
-  }
-
-  .subtitle {
-    color: #a8a8b3;
-    font-size: 15px;
-    max-width: 480px;
-    margin: 0 auto;
-    line-height: 1.5;
-  }
-
-  /* Susunan Grid 2x2 yang seimbang untuk 4 sistem */
-  .menu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    width: 100%;
-  }
-
-  @media (max-width: 640px) {
-    .menu { grid-template-columns: 1fr; }
-  }
-
+  h1 { font-size: clamp(26px, 4.5vw, 38px); color: #ffd700; margin-bottom: 8px; }
+  .subtitle { color: #a8a8b3; font-size: 15px; margin-bottom: 34px; }
+  .menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; text-align: left; }
+  @media (max-width: 640px) { .menu { grid-template-columns: 1fr; } }
   .card {
-    position: relative;
-    background: linear-gradient(145deg, rgba(28, 28, 35, 0.72), rgba(16, 16, 22, 0.82));
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 215, 0, 0.22);
-    border-radius: 22px;
-    padding: 28px 24px;
-    text-decoration: none;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-    overflow: hidden;
+    background: rgba(22, 22, 28, 0.80); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,215,0,0.28); border-radius: 20px; padding: 24px;
+    text-decoration: none; color: #fff; display: flex; flex-direction: column;
+    justify-content: space-between; transition: 0.25s ease;
   }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-  }
-
-  .icon-box {
-    width: 56px;
-    height: 56px;
-    border-radius: 15px;
-    background: rgba(255, 215, 0, 0.12);
-    border: 1px solid rgba(255, 215, 0, 0.30);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 27px;
-    transition: all 0.3s ease;
-  }
-
-  .tag {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #ccc;
-  }
-
-  .card h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #fff;
-  }
-
-  .card p {
-    font-size: 13.5px;
-    color: #9e9ea9;
-    line-height: 1.5;
-    margin-bottom: 22px;
-  }
-
-  .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-    font-size: 13px;
-    font-weight: 700;
-    color: #ffd700;
-  }
-
-  .arrow {
-    transition: transform 0.25s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-6px);
-    border-color: #ffd700;
-    background: linear-gradient(145deg, rgba(42, 38, 26, 0.85), rgba(20, 20, 26, 0.92));
-    box-shadow: 0 18px 40px rgba(255, 215, 0, 0.16);
-  }
-
-  .card:hover .icon-box {
-    transform: scale(1.08);
-    background: #ffd700;
-  }
-
-  .card:hover .arrow {
-    transform: translateX(5px);
-  }
-
-  /* Gaya Khas untuk Kad Kecemasan SOS */
-  .card.sos {
-    border-color: rgba(239, 68, 68, 0.38);
-    background: linear-gradient(145deg, rgba(45, 18, 22, 0.75), rgba(20, 12, 15, 0.88));
-  }
-
-  .card.sos .icon-box {
-    background: rgba(239, 68, 68, 0.16);
-    border-color: rgba(239, 68, 68, 0.42);
-  }
-
-  .card.sos .tag {
-    background: rgba(239, 68, 68, 0.18);
-    color: #fca5a5;
-  }
-
-  .card.sos .card-footer {
-    color: #f87171;
-  }
-
-  .card.sos:hover {
-    border-color: #ef4444;
-    box-shadow: 0 18px 40px rgba(239, 68, 68, 0.22);
-  }
-
-  .card.sos:hover .icon-box {
-    background: #ef4444;
-  }
-
-  footer {
-    margin-top: 42px;
-    text-align: center;
-    font-size: 12.5px;
-    color: #6e6e7a;
-  }
+  .card:hover { transform: translateY(-5px); border-color: #ffd700; background: rgba(38,34,24,0.92); }
+  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .icon { font-size: 28px; background: rgba(255,215,0,0.14); padding: 10px 13px; border-radius: 14px; }
+  .tag { font-size: 11px; font-weight: 700; color: #ccc; background: rgba(255,255,255,0.07); padding: 4px 10px; border-radius: 8px; }
+  .card h2 { font-size: 19px; margin-bottom: 6px; }
+  .card p { font-size: 13.5px; color: #a0a0ab; line-height: 1.45; margin-bottom: 18px; }
+  .open { font-size: 13px; font-weight: 700; color: #ffd700; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; }
+  .card.sos { border-color: rgba(239,68,68,0.45); background: rgba(40,16,20,0.82); }
+  .card.sos .icon { background: rgba(239,68,68,0.18); }
+  .card.sos .tag { background: rgba(239,68,68,0.2); color: #fca5a5; }
+  .card.sos .open { color: #f87171; }
+  .card.sos:hover { border-color: #ef4444; }
+  footer { margin-top: 38px; font-size: 12px; color: #777; }
 </style>
 </head>
 <body>
-
   <div class="container">
-    <div class="header">
-      <div class="logo-wrap">
-        <img class="logo" src="mg.png" alt="Midnight Garage Logo">
-      </div>
-      <div class="badge"><span class="badge-dot"></span> Event Management Portal</div>
-      <h1>MIDNIGHT GARAGE SYSTEM</h1>
-      <p class="subtitle">Pusat kawalan bersepadu acara. Sila pilih modul sistem yang ingin digunakan di bawah.</p>
-    </div>
-
+    <img class="logo" src="mg.png" alt="Logo">
+    <div class="badge">Event Management Portal</div>
+    <h1>MIDNIGHT GARAGE SYSTEM</h1>
+    <p class="subtitle">Sila pilih sistem yang ingin digunakan di bawah:</p>
     <div class="menu">
-      <a class="card" href="https://github.io">
+      <a class="card" href="https://aizadmidnight-hub.github.io/MidnightLuckydrawSystem/">
         <div>
-          <div class="card-top">
-            <div class="icon-box">🎰</div>
-            <span class="tag">Cabutan</span>
-          </div>
+          <div class="card-top"><span class="icon">🎰</span><span class="tag">Cabutan</span></div>
           <h2>Lucky Draw</h2>
-          <p>Cabutan nombor bertuah secara langsung beserta mod khas Grand Prize dan kesan bunyi.</p>
+          <p>Cabutan nombor bertuah beserta mod khas Grand Prize dan kesan bunyi.</p>
         </div>
-        <div class="card-footer">
-          <span>Buka Sistem</span>
-          <span class="arrow">→</span>
-        </div>
+        <div class="open">Buka Sistem →</div>
       </a>
-
-      <a class="card" href="https://github.io">
+      <a class="card" href="https://aizadmidnight-hub.github.io/MidnightGarageGroupDrawSystem/">
         <div>
-          <div class="card-top">
-            <div class="icon-box">👥</div>
-            <span class="tag">Pasukan</span>
-          </div>
+          <div class="card-top"><span class="icon">👥</span><span class="tag">Pasukan</span></div>
           <h2>Group Draw</h2>
-          <p>Pengagihan automatik pemain dan penjaga gol ke dalam pasukan secara bergilir-gilir.</p>
+          <p>Agihan peserta dan penjaga gol ke dalam pasukan secara automatik.</p>
         </div>
-        <div class="card-footer">
-          <span>Buka Sistem</span>
-          <span class="arrow">→</span>
-        </div>
+        <div class="open">Buka Sistem →</div>
       </a>
-
-      <a class="card" href="https://github.io">
+      <a class="card" href="https://aizadmidnight-hub.github.io/MGCERTIFICATEGEN/">
         <div>
-          <div class="card-top">
-            <div class="icon-box">📜</div>
-            <span class="tag">Sijil</span>
-          </div>
+          <div class="card-top"><span class="icon">📜</span><span class="tag">Sijil</span></div>
           <h2>E-Cert Generator</h2>
-          <p>Penjanaan pantas dan muat turun sijil penyertaan digital rasmi dalam format PDF dan JPG.</p>
+          <p>Penjanaan dan muat turun sijil digital rasmi dalam format PDF & JPG.</p>
         </div>
-        <div class="card-footer">
-          <span>Buka Sistem</span>
-          <span class="arrow">→</span>
-        </div>
+        <div class="open">Buka Sistem →</div>
       </a>
-
-      <a class="card sos" href="https://aizadmidnight-hub.github.io/EmergencyButton/">
+      <a class="card sos" href="https://github.io">
         <div>
-          <div class="card-top">
-            <div class="icon-box">🚨</div>
-            <span class="tag">Kecemasan</span>
-          </div>
+          <div class="card-top"><span class="icon">🚨</span><span class="tag">Kecemasan</span></div>
           <h2>Bantuan Kecemasan (SOS)</h2>
-          <p>Hantar nombor bib dan lokasi GPS terus ke WhatsApp Medic atau hubungi talian hotline.</p>
+          <p>Hantar nombor bib dan lokasi GPS terus ke WhatsApp Medic atau hubungi hotline.</p>
         </div>
-        <div class="card-footer">
-          <span>Akses Kecemasan</span>
-          <span class="arrow">→</span>
-        </div>
+        <div class="open">Akses Kecemasan →</div>
       </a>
     </div>
-
-    <footer>© 2026 Midnight Garage System. Hak Cipta Terpelihara.</footer>
+    <footer>© 2026 Midnight Garage System</footer>
   </div>
-
 </body>
 </html>
