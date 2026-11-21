@@ -6,14 +6,15 @@
 <title>Midnight Garage System</title>
 
 <!-- Tetapan PWA -->
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#08080c">
 <link id="appleIcon" rel="apple-touch-icon" href="mg.png">
-<link id="dynamicManifest" rel="manifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MG System">
 
 <script>
-  // JANA IKON BERLATAR BELAKANG GELAP SECARA AUTOMATIK DARI mg.png
+  // JANA IKON BERLATAR BELAKANG GELAP SECARA AUTOMATIK UNTUK IPAD & IPHONE
   (function generateDarkIcon() {
     const img = new Image();
     img.src = "mg.png";
@@ -24,11 +25,9 @@
       canvas.height = size;
       const ctx = canvas.getContext("2d");
 
-      // 1. Lukis latar belakang gelap (#08080c)
       ctx.fillStyle = "#08080c";
       ctx.fillRect(0, 0, size, size);
 
-      // 2. Kira saiz logo supaya muat kemas di tengah (72% daripada ruang ikon)
       const maxLogoSize = size * 0.72;
       const scale = Math.min(maxLogoSize / img.width, maxLogoSize / img.height);
       const w = img.width * scale;
@@ -36,37 +35,10 @@
       const x = (size - w) / 2;
       const y = (size - h) / 2;
 
-      // 3. Lukis logo mg.png di atas latar gelap
       ctx.drawImage(img, x, y, w, h);
 
       const darkIconDataUrl = canvas.toDataURL("image/png");
-
-      // 4. Kemaskini ikon untuk iPhone / Safari
       document.getElementById("appleIcon").href = darkIconDataUrl;
-
-      // 5. Kemaskini manifest untuk Android / Chrome
-      const manifestObj = {
-        name: "Midnight Garage System",
-        short_name: "MG System",
-        description: "Event Management Portal - Midnight Garage System",
-        start_url: window.location.href,
-        display: "standalone",
-        background_color: "#08080c",
-        theme_color: "#08080c",
-        orientation: "portrait",
-        icons: [
-          {
-            src: darkIconDataUrl,
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable"
-          }
-        ]
-      };
-
-      const stringManifest = JSON.stringify(manifestObj);
-      const blob = new Blob([stringManifest], { type: "application/json" });
-      document.getElementById("dynamicManifest").href = URL.createObjectURL(blob);
     };
   })();
 </script>
@@ -91,7 +63,7 @@
 
   #installBtn {
     display: none;
-    margin: 0 auto 28px auto;
+    margin: 0 auto 24px auto;
     background: linear-gradient(135deg, #ffd700, #f59e0b);
     color: #000;
     font-weight: 800;
@@ -111,11 +83,11 @@
     background: rgba(255, 215, 0, 0.15);
     border: 1px solid rgba(255, 215, 0, 0.4);
     color: #ffd700;
-    font-size: 13px;
-    padding: 12px 16px;
+    font-size: 13.5px;
+    padding: 14px 18px;
     border-radius: 12px;
     margin: 0 auto 24px auto;
-    max-width: 420px;
+    max-width: 450px;
     line-height: 1.5;
   }
 
@@ -151,7 +123,8 @@
 
     <button id="installBtn">📲 Pasang Aplikasi ke Skrin Utama</button>
     <div id="iosTip">
-      Untuk pengguna iPhone/iPad: Tekan ikon <b>Share (⬆️)</b> di bar bawah Safari, kemudian pilih <b>"Add to Home Screen"</b>.
+      Untuk pengguna iPad & iPhone (Safari):<br>
+      Tekan ikon <b>Share (⬆️)</b> di penjuru atas kanan (atau bar bawah), kemudian pilih <b>"Add to Home Screen"</b>.
     </div>
 
     <div class="menu">
@@ -221,9 +194,12 @@
     }
   });
 
-  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  // PENGESANAN KHAS UNTUK SEMUA MODEL IPAD & IPHONE (TERMASUK IPADOS MODEN)
+  const isAppleMobile = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) || 
+                        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   const isInStandaloneMode = ("standalone" in window.navigator) && window.navigator.standalone;
-  if (isIos && !isInStandaloneMode) {
+
+  if (isAppleMobile && !isInStandaloneMode) {
     installBtn.style.display = "inline-block";
   }
 
